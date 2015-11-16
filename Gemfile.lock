@@ -1,0 +1,15 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    safe_yaml (1.0.4)
+    sequel (4.28.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  safe_yaml
+  sequel
+
+BUNDLED WITH
+   1.10.6
