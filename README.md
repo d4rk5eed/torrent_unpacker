@@ -17,3 +17,8 @@ This application assigned to extract downloaded torrents on synology to predefin
   ```
 
 4. Execute app with `torrents_unpacker ~/.torrents_unpacker/config.yml`
+
+## TODO
+1. Make an executable
+2. Make command line params `-c <config> -d <database>`
+3. Make initial episode as config param
