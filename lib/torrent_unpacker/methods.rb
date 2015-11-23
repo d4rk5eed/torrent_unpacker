@@ -13,6 +13,7 @@ def extract_movie(source, dest, start_item)
     archive = Dir[dir + '/*.rar'].sort.first
 
     if archive
+      print "Unpacking '#{archive}' to '#{dest}'\n"
       system "unrar e -y #{archive} '#{dest}' > /dev/null"
       archive[/S\d{2}E\d{2}/]
     end

@@ -1,10 +1,24 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
 require 'yaml'
 require 'sequel'
 require_relative 'torrent_unpacker/methods'
 
-LAST = 'S09E06'
-# ARGV[0]: config file path
-DB = Sequel.connect('sqlite://db/torrents.db')
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: torrent_unpacker.rb [options]"
+
+  opts.on("-c CONFIG_FILE", "--config=CONFIG_FILE", "Config file location") do |v|
+    options[:config] = File.expand_path(v)
+  end
+  opts.on("-d DATABASE_FILE", "--database=DATABASE_FILE", "SQLite database file location") do |v|
+    options[:database] = File.expand_path(v)
+  end
+end.parse!
+
+database_file = options[:database] || 'db/torrents.db'
+DB = Sequel.connect("sqlite://#{database_file}")
 
 DB.create_table :torrents do
   String :torrent
@@ -12,20 +26,19 @@ DB.create_table :torrents do
   unique :torrent
 end unless DB.table_exists?(:torrents)
 
-file_name = File.expand_path(ARGV[0])
-config = YAML.load_file(file_name)
+config = YAML.load_file(options[:config])
 
 config.each do |k, v|
   current = DB[:torrents][torrent: k]
 
-  #print "Last: #{current}\n"
-  #print "Last: #{current[:torrent]}\n"
-  #print "Last: #{current[:last_item]}\n"
-
-  last_item = extract_movie(v['source'], v['dest'], current[:last_item]).last
+  start_item = current ? current[:last_item] : v['start_item']
+  last_item = extract_movie(v['source'], v['dest'], start_item).last
 
   if last_item
-    DB[:torrents].update(torrent: k, last_item: last_item[/S\d{2}E\d{2}/])
-    #print "Last item #{last_item[/S\d{2}E\d{2}/]}\n"
+    if current
+      DB[:torrents].update(torrent: k, last_item: last_item[/S\d{2}E\d{2}/])
+    else
+      DB[:torrents].insert(torrent: k, last_item: last_item[/S\d{2}E\d{2}/])
+    end
   end
 end
