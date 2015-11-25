@@ -22,6 +22,6 @@ start_item param specifies episode which unpacking will start from.
 4. Execute app with `lib/torrents_unpacker.rb -d ~/.torrent_unpacker/database.sql -c ~/.torrents_unpacker/config.yml`
 
 ## TODO
-1. Make an executable
-2. Make command line params `-c <config> -d <database>`
-3. Make initial episode as config param
+1. Make an executable - Done as ruby executable script
+2. Make command line params `-c <config> -d <database>` - Done
+3. Make initial episode as config param - Done
