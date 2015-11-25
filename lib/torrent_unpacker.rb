@@ -18,7 +18,7 @@ OptionParser.new do |opts|
 end.parse!
 
 database_file = options[:database] || 'db/torrents.db'
-DB = Sequel.connect("sqlite://#{database_file}")
+DB = Sequel.connect("jdbc:sqlite://#{database_file}")
 
 DB.create_table :torrents do
   String :torrent

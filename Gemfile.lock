@@ -1,13 +1,15 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    jdbc-sqlite3 (3.8.11.2)
     safe_yaml (1.0.4)
     sequel (4.28.0)
 
 PLATFORMS
-  ruby
+  java
 
 DEPENDENCIES
+  jdbc-sqlite3
   safe_yaml
   sequel
 
