@@ -20,6 +20,7 @@ This application assigned to extract downloaded torrents on synology to predefin
   ```
 start_item param specifies episode which unpacking will start from.
 4. Execute app with `lib/torrents_unpacker.rb -d ~/.torrent_unpacker/database.sql -c ~/.torrents_unpacker/config.yml`
+5. Alternative way of execution `java -jar torrent_unpacker.jar -c <config> -d <database>`
 
 ## TODO
 1. Make an executable - Done as ruby executable script
