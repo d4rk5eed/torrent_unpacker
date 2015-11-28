@@ -25,6 +25,10 @@ end unless DB.table_exists?(:torrents)
 
 config = YAML.load_file(options[:config])
 
+puts "Started at #{Time.now} with\n"
+puts " - database file: #{database_file}\n"
+puts " - config file: #{options[:config]}\n"
+
 config.each do |k, v|
   current = DB[:torrents][torrent: k]
 
