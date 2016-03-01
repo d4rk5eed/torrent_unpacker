@@ -32,8 +32,10 @@ puts " - config file: #{options[:config]}\n"
 config.each do |k, v|
   current = DB[:torrents][torrent: k]
 
-  start_item = current ? current[:last_item] : v['start_item']
-  last_item = extract_movie(v['source'], v['dest'], start_item).last
+  start_item, delta = current ?
+                        [current[:last_item], 1] : [v['start_item'], 0]
+
+  last_item = extract_movie(v['source'], v['dest'], start_item, delta).last
 
   if last_item
     if current

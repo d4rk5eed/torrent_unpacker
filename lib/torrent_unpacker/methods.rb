@@ -1,4 +1,4 @@
-def extract_movie(source, dest, start_item)
+def extract_movie(source, dest, start_item, delta)
   dirs_list = Dir[source + '*']
   if dirs_list.empty?
     puts "Incorrect source dir #{source}\n"
@@ -18,7 +18,7 @@ def extract_movie(source, dest, start_item)
     return []
   end
 
-  cutted = sorted.slice(last_index + 1, sorted.length)
+  cutted = sorted.slice(last_index + delta, sorted.length)
 
   cutted.each do |dir|
     archive = Dir[dir + '/*.rar'].sort.first
